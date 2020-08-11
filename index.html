@@ -1,0 +1,475 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Carport Calculator</title>
+<link type="text/css" href="carstyle.css" rel="stylesheet" >
+</head>
+<body>
+<div id="enterarea">
+  <h2>That Shed Place Carport Estimator</h2> 
+  <div id="savedData">
+  <h3>Quote #<span id="quoteID"></span></h3>
+  <h4>Search for saved quotes:</h4>
+  <div><input type="text" id="searchMe" placeholder="Quote ID or Name" /><input type="button" value="search" onclick="searchQuotes()"/></div>
+  <div id="searchResults"></div>
+  <div id="hideButton"></div>
+  </div>
+  <form id="carportform" >
+	<section  id="customerinfo" >
+		<h3>Customer Information</h3>
+		<label for="name">Customer Name: </label><input name="name" id="name" type="text" placeholder="ex: John Doe"><br>
+		<label for="street">Street Address: </label><input name="street" id="street" type="text" placeholder="ex: 2411 River Rd"><br>
+		<label for="city">City: </label><input name="city" id="city" type="text" placeholder="Spencer"><br>
+		<label for="state">State: </label><input name="state" id="state" type="text" placeholder="IN"><br>
+		<label for="zip">Zip: </label><input name="zip" id="zip" type="text" placeholder="47460"><br>
+		<label for="phone1">Best Phone Number: </label><input name="phone1" id="phone1" type="tel" placeholder="ex: 812-714-8250"><br>
+		<label for="phone2">Alternative: </label><input name="phone2" id="phone2" type="tel" placeholder="ex: 812-714-8250"><br>
+		<label for="email">Email Address: </label><input name="email" id="email" type="email" placeholder="ex: keithrealty@outlook.com"><br>
+		<label for="installaddress">Install Address: </label><input name="installaddress" id="installaddress" type="text" placeholder="ex: Same as above"><br>
+		<label for="taxExemptBox" >Tax Exempt: <input type="checkbox" id="taxExemptBox"/></label>
+	</section>
+	<section id="generalinfo">
+		<h3>General Information</h3>
+		<label for="gauge">Gauge: </label>
+			<select id="gauge">
+				<option value="12">12 Gauge</option>
+				<option value="14" selected="yes" >14 Gauge</option>
+			</select><br>
+		<label for="width">Width: (custom: <input type="checkbox" id="customWidthOption" onchange="showCustomW()"/>)</label> 
+			<select id="width" onchange="anchorQtyCalc()">
+				<option value="0" selected="yes">12'</option>
+				<option value="1">18'</option>
+				<option value="2">20'</option>
+				<option value="3">22'</option>
+				<option value="4">24'</option>
+				<option value="5">26'</option>
+				<option value="6">28'</option>
+				<option value="7">30'</option>
+			</select><br>
+			<div id="customWidthShow"><label for="customWidth">Custom Width (Doesn't Change Pricing):</label><input type="text" id="customWidth" /><br></div>
+		<label for="length">Length: (custom: <input type="checkbox" id="customLengthOption" onchange="showCustomL()"/>)</label>
+			<select id="length" onchange="anchorQtyCalc()">
+				<option value="0" selected="yes">21'</option>
+				<option value="1">26'</option>
+				<option value="2">31'</option>
+				<option value="3">36'</option>
+				<option value="4">41'</option>
+				<option value="5">46'</option>
+				<option value="6">51'</option>
+			</select><br>
+			<div id="customLengthShow"><label for="customLength">Custom Length (Doesn't Change Pricing):</label><input type="text" id="customLength" /><br></div>
+		<label for="double">Double the Length? </label>
+			<select id="double" onchange="anchorQtyCalc()">
+				<option value="yes">Yes</option>
+				<option value="no" selected="yes">No</option>
+			</select><br>
+		<label for="height">Leg Height: </label>
+			<select id="height" onchange="anchorQtyCalc(); extraHeightAuto(); garageDoorHeights()">
+				<option value="0" selected="yes">6'</option>
+				<option value="1">7'</option>
+				<option value="2">8'</option>
+				<option value="3">9'</option>
+				<option value="4">10'</option>
+				<option value="5">11'</option>
+				<option value="6">12'</option>
+				<option value="7">13'</option>
+				<option value="8">14'</option>
+				<option value="9">15'</option>
+				<option value="10">16'</option>
+			</select><br>
+		<label for="style">Roof Style: </label>
+			<select id="roofstyle">
+				<option value="0" selected="yes">Regular</option>
+				<option value="1">A-Frame</option>
+				<option value="2">A-Frame Vertical</option>
+			</select><br>
+		<label for="sidesenclosed">Sides Enclosed? </label>
+			<select id="sidesenclosed" onchange="anchorQtyCalc()">
+				<option value="yes">Yes</option>
+				<option value="no" selected="yes">No</option>
+			</select><br>
+			<div id="sideoptions">
+		<label for="oneside">Just One Side Enclosed? </label>
+			<select id="oneside" onchange="anchorQtyCalc()">
+				<option value="2">Yes</option>
+				<option value="1" selected="yes">No</option>
+			</select><br>
+		<label for="sidelength">Side Lengths (In Feet): </label>
+			<select id="sidelength" onchange="anchorQtyCalc()" >
+				<option value="10" selected="yes">Full Length</option>
+				<option value="0">10'</option>
+				<option value="2">15'</option>
+				<option value="4">20'</option>
+				<option value="6">25'</option>
+			</select><br>
+		<label for="verticalsides">Vertical Sides? </label>
+			<select id="verticalsides">
+				<option value="yes">Yes</option>
+				<option value="no" selected="yes">No</option>
+			</select><br>
+			</div>
+		<label for="endsenclosed" >End Enclosed? </label>
+			<select id="endsenclosed" onchange="anchorQtyCalc()">
+				<option value="1">Yes</option>
+				<option value="0" selected="yes">No</option>
+			</select><br>
+			<div id="endoptions">
+		<label for="bothends">Both Ends Enclosed? </label>
+			<select id="bothends" onchange="anchorQtyCalc()">
+				<option value="1" >Yes</option>
+				<option value="0" selected="yes" >No</option>
+			</select><br>
+		<label for="verticalends">Vertical Ends? </label>
+			<select id="verticalends">
+				<option value="yes">Yes</option>
+				<option value="no" selected="yes">No</option>
+			</select><br>
+			</div>
+			<div id="gableendoptions">
+		<label for="gableenclosed">Gable Ends Enclosed: </label>
+			<select id="gableenclosed" onchange="anchorQtyCalc()">
+				<option value="0" selected="yes">No</option>
+				<option value="1">One Gable</option>
+				<option value="2">Both Gables</option>
+			</select><br>
+		<label for="verticalgables">Vertical Gables? </label>
+			<select id="verticalgables">
+				<option value="yes">Yes</option>
+				<option value="no" selected="yes">No</option>
+			</select><br>
+			</div>
+	</section>
+	<section id="doorsandwindows">
+		<h3>Doors and Windows</h3>
+		<p>Insert the Quanity for Each Door/Window Size</p>
+		<div class="floatright">
+		<input type="number" id="32door" onchange="anchorQtyCalc()"><label for="32door"> - 32" Walk Door(s) </label><br>
+		<input type="number" id="36door" onchange="anchorQtyCalc()"><label for="36door"> - 36" Walk Door(s) </label><br>
+		<input type="number" id="24win" onchange="anchorQtyCalc()"><label for="24win"> - 24" Window(s) </label><br>
+		<input type="number" id="30win" onchange="anchorQtyCalc()"><label for="30win"> - 30" Window(s) </label><br>
+		</div><div class="moveleft">
+		<input type="number" id="6x6" onchange="anchorQtyCalc(); garageDoorHeights()"><label for="6x6"> - 6x6 Garage Door(s) </label><br>
+		<input type="number" id="8x7" onchange="anchorQtyCalc(); garageDoorHeights()"><label for="8x7"> - 8x7 Garage Door(s) </label><br>
+		<input type="number" id="9x7" onchange="anchorQtyCalc(); garageDoorHeights()"><label for="9x7"> - 9x7 Garage Door(s) </label><br>
+		<input type="number" id="10x8" onchange="anchorQtyCalc(); garageDoorHeights()"><label for="10x8"> - 10x8 Garage Door(s) </label><br>
+		<input type="number" id="10x10" onchange="anchorQtyCalc(); garageDoorHeights()"><label for="10x10"> - 10x10 Garage Door(s) </label><br>
+		<input type="number" id="10side" onchange="anchorQtyCalc()"><label for="10side"> - Up to 10x10 Side Drive(s) </label><br>
+		<input type="number" id="10plusside" onchange="anchorQtyCalc()"><label for="10plusside"> - Larger than 10x10 Side Drive(s) </label>
+		</div>
+	</section>
+	<section id="anchorsandstuff">
+		<h3>Anchors, Braces, and Extras</h3>
+		<div class="floatright">
+		<label for="3braces">3' Braces? </label>
+			<select id="3braces">
+				<option value="yes">Yes</option>
+				<option value="no" selected="yes">No</option>
+			</select><br>
+		<label for="insulation1">Condenstop/Insulation: </label>
+			<select id="insulation1">
+				<option value="condenstop">Condenstop</option>
+				<option value="insulation">Insulation</option>
+				<option value="no" selected="yes">None</option>
+			</select>
+		</div>
+		<div id="anchornumbers" class="moveleft">
+		<input type="number" id="extraj" ><label for="extraj"> - Extra J-Trim (10'8"):  </label><br>
+		<input type="number" id="extraSheets" ><label for="extraSheets"> - Extra Metal Sheets (length of side)</label><br>
+		<input type="number" id="standarda" onchange="anchorQtyCalc()"><label for="standarda" id="standardanchors"> - Standard Anchors </label><br>
+		<input type="number" id="mobilea" onchange="anchorQtyCalc()"><label for="mobilea" id="mobilehomeanchors"> - Mobile Home Anchors </label><br>
+		<input type="number" id="asphalta" onchange="anchorQtyCalc()"><label for="asphalta" id="asphaltanchors"> - Asphalt Anchors </label><br>
+		<input type="number" id="concretea" onchange="anchorQtyCalc()"><label for="concretea" id="concreteanchors"> - Concrete Anchors </label><br>
+		<input type="number" id="supportsa" onchange="anchorQtyCalc()"><label for="supportsa" id="supportanchors"> - Supports in Ground </label>
+		</div>
+		
+	</section>
+	<section id="manualadditions">
+		<h3>Taxable Additions</h3>
+		<table>
+		<tr><th>Description</th><th>Price (manual)</th></tr>
+		<tr><td><input id="description1" placeholder="Description #1" type="text"></td><td><input type="number" id="price1" placeholder="Price #1" pattern="[0-9]+([\.,][0-9]+)?" step="0.01"></td></tr>
+		<tr><td><input id="description2" placeholder="Description #2" type="text"></td><td><input type="number" id="price2" placeholder="Price #2" pattern="[0-9]+([\.,][0-9]+)?" step="0.01"></td></tr>
+		<tr><td><input id="description3" placeholder="Description #3" type="text"></td><td><input type="number" id="price3" placeholder="Price #3" pattern="[0-9]+([\.,][0-9]+)?" step="0.01"></td></tr>
+		</table>
+	</section>
+	<section id="contractorfees">
+		<h3>Contractor Fees</h3>
+		<label for="onsite">On Site Cut Fee? </label>
+			<select id="onsite">
+				<option value="yes">Yes</option>
+				<option value="no" selected="yes">No</option>
+			</select><br>
+		<label for="buildwater">Build Over Water Fee? </label>
+			<select id="buildwater">
+				<option value="yes">Yes</option>
+				<option value="no" selected="yes">No</option>
+			</select><br>
+		<label for="buildover">Build Over Fee? </label>
+			<select id="buildover">
+				<option value="yes">Yes</option>
+				<option value="no" selected="yes">No</option>
+			</select><br>
+		<label for="extraheight" id="extraheightlabelbaby" >Extra Height Fee? </label>
+			<select id="extraheight">
+				<option value="yes">Yes</option>
+				<option value="no" selected="yes">No</option>
+			</select><br>
+	</section>
+	<section id="nontaxadditions">
+		<h3>Non Tax Additions</h3>
+		<table>
+		<tr><th>Description</th><th>Price (manual)</th></tr>
+		<tr><td><input id="description4" type="text" placeholder="Description #1"></td><td><input type="number" id="price4" placeholder="Price #1" pattern="[0-9]+([\.,][0-9]+)?" step="0.01"></td></tr>
+		<tr><td><input id="description5" type="text" placeholder="Description #2"></td><td><input type="number" id="price5" placeholder="Price #2" pattern="[0-9]+([\.,][0-9]+)?" step="0.01"></td></tr>
+		</table>	
+	</section>
+	<section id="colorinfo">
+		<h3>Color Selection</h3>
+		<label for="roofcolor">Roof Color: </label>
+			<select id="roofcolor">
+				<option value="none" selected="yes">None Selected</option>
+				<option value="burgandy">Burgandy</option>
+				<option value="forest">Forest Green</option>
+				<option value="hawaiian">Hawaiian Blue</option>
+				<option value="zinc">Zinc Grey</option>
+				<option value="black">Black</option>
+				<option value="brightwhite">Bright White</option>
+				<option value="barnred">Barn Red</option>
+				<option value="stone">Light Stone</option>
+				<option value="pebble">Pebble Beige</option>
+				<option value="pewter">Pewter Grey</option>
+				<option value="brown">Brown</option>
+				<option value="mocha">Mocha Tan</option>
+				<option value="taupe">Taupe</option>
+			</select><br>
+		<label for="sidecolor">Side Color: </label>
+			<select id="sidecolor">
+				<option value="none" selected="yes">None Selected</option>
+				<option value="burgandy">Burgandy</option>
+				<option value="forest">Forest Green</option>
+				<option value="hawaiian">Hawaiian Blue</option>
+				<option value="zinc">Zinc Grey</option>
+				<option value="black">Black</option>
+				<option value="brightwhite">Bright White</option>
+				<option value="barnred">Barn Red</option>
+				<option value="stone">Light Stone</option>
+				<option value="pebble">Pebble Beige</option>
+				<option value="pewter">Pewter Grey</option>
+				<option value="brown">Brown</option>
+				<option value="mocha">Mocha Tan</option>
+				<option value="taupe">Taupe</option>
+			</select><br>
+		<label for="endcolor">End Color: </label>
+			<select id="endcolor">
+				<option value="none" selected="yes">None Selected</option>
+				<option value="burgandy">Burgandy</option>
+				<option value="forest">Forest Green</option>
+				<option value="hawaiian">Hawaiian Blue</option>
+				<option value="zinc">Zinc Grey</option>
+				<option value="black">Black</option>
+				<option value="brightwhite">Bright White</option>
+				<option value="barnred">Barn Red</option>
+				<option value="stone">Light Stone</option>
+				<option value="pebble">Pebble Beige</option>
+				<option value="pewter">Pewter Grey</option>
+				<option value="brown">Brown</option>
+				<option value="mocha">Mocha Tan</option>
+				<option value="taupe">Taupe</option>
+			</select><br>
+		<label for="trimcolor">Trim Color: </label>
+			<select id="trimcolor">
+				<option value="none" selected="yes">None Selected</option>
+				<option value="burgandy">Burgandy</option>
+				<option value="forest">Forest Green</option>
+				<option value="hawaiian">Hawaiian Blue</option>
+				<option value="zinc">Zinc Grey</option>
+				<option value="black">Black</option>
+				<option value="brightwhite">Bright White</option>
+				<option value="barnred">Barn Red</option>
+				<option value="stone">Light Stone</option>
+				<option value="pebble">Pebble Beige</option>
+				<option value="pewter">Pewter Grey</option>
+				<option value="brown">Brown</option>
+				<option value="mocha">Mocha Tan</option>
+				<option value="taupe">Taupe</option>
+			</select>
+	</section>
+	<div class="buttondisplay">
+	<section id="buttons">
+		<input type="button" onclick="submitQuote()" value="Submit Quote">
+	</section>
+	</div>
+  </form>
+  </div>
+  <div id="quotearea">
+  <h1>Rocky Top Exchange</h1>
+  <h4>Tilden Keith - 812-821-1408</h4>
+  <h4>Trent Keith - 812-821-8499</h4>
+  <h3>Carport Quote # <span id="putIdHere"></span></h3>
+  <div class="buttondisplay">
+  <input type="button" onclick="editForm()" value="Edit Quote"> <input type="button" onclick="window.print()" value="Print Quote"><input type="button" onclick="save()" value="Save Quote"><input type="button" onclick="resetForm()" value="Reset Quote"><input type="button" onclick="orderForm()" value="Submit Order">
+  </div>
+  <div>
+  <table id="pricingtabledisplay">
+  <tr>
+	<td class="col1">Name: </td>
+	<td class="col2" id="cell2of1"></td>
+	<td class="col3" id="cell3of1">Date:</td>
+  </tr>
+   <tr>
+	<td class="col1">Phone #:</td>
+	<td class="col2" id="cell2of2"></td>
+	<td class="col3" id="cell3of2"></td>
+  </tr>
+   <tr>
+	<td class="col1">Item:</td>
+	<td class="col2" id="cell2of3">Description:</td>
+	<td class="col3" id="cell3of3">Cost:</td>
+  </tr>
+    <tr>
+	<td class="col1">Roof Style</td>
+	<td class="col2" id="cell2of4"></td>
+	<td class="col3" id="cell3of4"></td>
+  </tr>
+   <tr>
+	<td class="col1">Width/Length/Gauge</td>
+	<td class="col2" id="cell2of5"></td>
+	<td class="col3" id="cell3of5"></td>
+  </tr>
+   <tr>
+	<td class="col1">Leg Height</td>
+	<td class="col2" id="cell2of6"></td>
+	<td class="col3" id="cell3of6"></td>
+  </tr>
+    <tr>
+	<td class="col1">Sides Enclosed:</td>
+	<td class="col2" id="cell2of7"></td>
+	<td class="col3" id="cell3of7"></td>
+  </tr>
+   <tr>
+	<td class="col1">Ends Enclosed</td>
+	<td class="col2" id="cell2of8"></td>
+	<td class="col3" id="cell3of8"></td>
+  </tr>
+   <tr>
+	<td class="col1">Extra J/Extra Sheets</td>
+	<td class="col2" id="cell2of9"></td>
+	<td class="col3" id="cell3of9"></td>
+  </tr>
+  
+    <tr>
+	<td class="col1">Walk-In Door(s)</td>
+	<td class="col2" id="cell2of10"></td>
+	<td class="col3" id="cell3of10"></td>
+  </tr>
+   <tr>
+	<td class="col1">Roll-Up Door(s)</td>
+	<td class="col2" id="cell2of11"></td>
+	<td class="col3" id="cell3of11"></td>
+  </tr>
+   <tr>
+	<td class="col1">Windows</td>
+	<td class="col2" id="cell2of12"></td>
+	<td class="col3" id="cell3of12"></td>
+  </tr>
+  
+    <tr>
+	<td class="col1">3' Braces</td>
+	<td class="col2" id="cell2of13"></td>
+	<td class="col3" id="cell3of13"></td>
+  </tr>
+   <tr>
+	<td class="col1">Anchors</td>
+	<td class="col2" id="cell2of14"></td>
+	<td class="col3" id="cell3of14"></td>
+  </tr>
+   <tr>
+	<td class="col1">Gables</td>
+	<td class="col2" id="cell2of15"></td>
+	<td class="col3" id="cell3of15"></td>
+  </tr>
+  
+    <tr>
+	<td class="col1">Insulation/Condenstop</td>
+	<td class="col2" id="cell2of16"></td>
+	<td class="col3" id="cell3of16"></td>
+  </tr>
+   <tr>
+	<td class="col1">Side Drive</td>
+	<td class="col2" id="cell2of17"></td>
+	<td class="col3" id="cell3of17"></td>
+  </tr>
+   <tr>
+	<td class="col1">Other Items</td>
+	<td class="col2" id="cell2of18"></td>
+	<td class="col3" id="cell3of18"></td>
+  </tr>
+  
+    <tr>
+	<td class="col1">Conctractor Fees</td>
+	<td class="col2" id="cell2of19"></td>
+	<td class="col3" id="cell3of19"></td>
+  </tr>
+   <tr>
+	<td class="col1">Other Labor Fees</td>
+	<td class="col2" id="cell2of20"></td>
+	<td class="col3" id="cell3of20"></td>
+  </tr>
+   <tr>
+	<td class="col1">Color Options:</td>
+	<td class="col2" id="cell2of21"></td>
+	<td class="col3" id="cell3of21"></td>
+  </tr>
+  
+    <tr>
+	<td class="col1"></td>
+	<td class="col2" id="cell2of22">SUBTOTAL:</td>
+	<td class="col3" id="cell3of22"></td>
+  </tr>
+   <tr>
+	<td class="col1"></td>
+	<td class="col2" id="cell2of23">7% SALES TAX:</td>
+	<td class="col3" id="cell3of23"></td>
+  </tr>
+   <tr>
+	<td class="col1"></td>
+	<td class="col2" id="cell2of24">CONTRACTOR FEE:</td>
+	<td class="col3" id="cell3of24"></td>
+  </tr>
+  
+    <tr>
+	<td class="col1"></td>
+	<td class="col2" id="cell2of25">TOTAL</td>
+	<td class="col3" id="cell3of25"></td>
+  </tr>
+   <tr>
+	<td class="col1"></td>
+	<td class="col2" id="cell2of26">12% Down Payment Amount Required to Place Order:</td>
+	<td class="col3" id="cell3of26"></td>
+  </tr>
+   <tr class="nodisplay" >
+	<td class="col1" id="cell1of27"></td>
+	<td class="col2" id="cell2of27"></td>
+	<td class="col3" id="cell3of27"></td>
+  </tr>
+   <tr class="nodisplay">
+	<td class="col1" id="cell1of28"></td>
+	<td class="col2" id="cell2of28"></td>
+	<td class="col3" id="cell3of28"></td>
+  </tr>
+  <tr class="nodisplay">
+	<td class="col1" id="cell1of29"></td>
+	<td class="col2" id="cell2of29"></td>
+	<td class="col3" id="cell3of29"></td>
+  </tr>
+  </table>
+ <p>(50% Deposit Required on Special Orders)</p>
+ <p>This is a quote and prices are subject to change without notice.</p>
+  
+ 
+  
+  </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.min.js"></script>
+<script src="quotecalc.js"></script>
+</body>
+</html>

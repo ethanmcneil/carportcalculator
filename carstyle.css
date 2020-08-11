@@ -1,0 +1,117 @@
+#quotearea, #customWidthShow, #customLengthShow, .noshowbaby {
+	display: none;
+}
+body {
+	font-size: 1.05em;
+	
+}
+
+h1, h2, h3, h4, h5, h6 {
+	text-align: center;
+}
+
+h1 {
+	font-size: 3.5em;
+}
+
+h4 {
+	margin: 0px;
+	padding: 0px;
+}
+p {
+	text-align: center;
+}
+#enterarea, #quotearea {
+	width: 100%;
+	max-width: 750px;
+	margin: 10px auto;
+	padding: 5px;
+}
+input, select {
+	margin: 5px;
+	font-size: 1.05em;
+	display: inline-block
+}
+
+label {
+	display:inline-block;
+	width: 200px;
+	padding: 10px;
+}
+section, #savedData {
+	text-align: center;
+}
+section table {
+	margin: 0px auto;
+	width: auto;
+
+}
+section td, section th {
+	float: left;
+	width: 45%;
+	min-width: 200px;
+}
+#doorsandwindows input, #anchornumbers input {
+	width: 100px;
+}
+
+select {
+	width: 150px;
+}
+
+.floatright {
+	float: none;
+}
+.col1, #cell2of3, #cell3of3, #cell3of1, #cell2of25, #cell3of25 {
+	font-weight: 900;
+}
+.col1, #cell2of22, #cell2of23, #cell2of24, #cell2of25, #cell2of26 {
+	text-align: right;
+	padding-right: 10px;
+}
+.col2, .col3 {
+	text-align: center;
+	padding: 3px;
+}
+#pricingtabledisplay td {
+	border: 1px solid black;
+}
+.buttondisplay {
+	text-align: center;
+}
+.buttondisplay input {
+	background-color: white;
+	border: 2px solid #b23d46;
+	color: #b23d46;
+	padding: 10px;
+	text-align: center;
+}
+.buttondisplay input:hover {
+	background-color:#b23d46;
+	color: white;
+}
+tr.nodisplay {
+	display:none;
+}
+
+table.oldQuoteList {
+	width: 100%;
+}
+table.oldQuoteList td {
+	border-bottom: 1px dotted black;
+}
+
+@media print {
+	h1 {
+		margin-top: -5px;
+		margin-bottom: 0px;
+		padding: 0px;
+		font-size: 2em 
+	}
+	.buttondisplay {
+		display: none;
+	}
+	table {
+		font-size: .9em;
+	}
+}
